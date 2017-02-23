@@ -110,7 +110,7 @@ pub struct AddEntity<'r, Ecs: 'r, A> {
 }
 
 impl<'r, D: DropType, A: 'static> AddEntity<'r, Ecs<D>, A> {
-    fn add_entity(&mut self, a: A) {
+    pub fn add_entity(&mut self, a: A) {
         self.ecs.world[self.index].get_mut::<A>().unwrap().push(a);
     }
 }
@@ -122,13 +122,13 @@ pub struct AddEntity2<'r, Ecs: 'r, A, B> {
     _b: ::std::marker::PhantomData<B>,
 }
 impl<'r, D: DropType, A: 'static, B: 'static> AddEntity2<'r, Ecs<D>, A, B> {
-    fn add_entity2(&mut self, a: A, b: B) {
+    pub fn add_entity2(&mut self, a: A, b: B) {
         self.ecs.world[self.index].get_mut::<A>().unwrap().push(a);
         self.ecs.world[self.index].get_mut::<B>().unwrap().push(b);
     }
 }
 impl<D: DropType> Ecs<D> {
-    fn add_entity<'r, A: 'static>(&'r mut self) -> AddEntity<'r, Self, A> {
+    pub fn add_entity<'r, A: 'static>(&'r mut self) -> AddEntity<'r, Self, A> {
         let p = self.world
             .iter()
             .position(|store| {
@@ -147,7 +147,7 @@ impl<D: DropType> Ecs<D> {
         }
     }
 
-    fn add_entity2<'r, A: 'static, B: 'static>(&'r mut self) -> AddEntity2<'r, Self, A, B> {
+    pub fn add_entity2<'r, A: 'static, B: 'static>(&'r mut self) -> AddEntity2<'r, Self, A, B> {
         let p = self.world
             .iter()
             .position(|store| {
@@ -170,7 +170,7 @@ impl<D: DropType> Ecs<D> {
         }
     }
 
-    fn update<T: 'static, F>(&mut self, f: F)
+    pub fn update<T: 'static, F>(&mut self, f: F)
         where F: Fn(&mut T)
     {
         for store in self.world.iter_mut() {
@@ -182,7 +182,7 @@ impl<D: DropType> Ecs<D> {
         }
     }
 
-    fn update2<A: 'static, B: 'static, F>(&mut self, f: F)
+    pub fn update2<A: 'static, B: 'static, F>(&mut self, f: F)
         where F: Fn(&mut A, &mut B)
     {
         for store in self.world.iter_mut() {
@@ -194,7 +194,7 @@ impl<D: DropType> Ecs<D> {
         }
     }
 
-    fn new() -> Ecs<D> {
+    pub fn new() -> Ecs<D> {
         Ecs { world: Vec::new() }
     }
 }
