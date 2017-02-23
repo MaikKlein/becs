@@ -187,6 +187,7 @@ impl<D: DropType> Ecs<D> {
     {
         for store in self.world.iter_mut() {
             if let Some((i1, i2)) = store.get_mut2::<A, B>() {
+                println!("len {} {}", i1.len(), i2.len());
                 for (a, b) in i1.iter_mut().zip(i2.iter_mut()) {
                     f(a, b);
                 }
