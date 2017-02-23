@@ -1,0 +1,6 @@
+[package]
+name = "becs"
+version = "0.1.0"
+authors = ["maikklein <maikklein@googlemail.com>"]
+
+[dependencies]
